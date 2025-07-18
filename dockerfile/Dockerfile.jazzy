@@ -1,0 +1,51 @@
+# ==========================================
+# Dockerfile for ROS 2 Jazzy + UR5
+# ==========================================
+
+# Base image: ROS 2 Jazzy
+FROM osrf/ros:jazzy-desktop-full
+# Install some ros dependencies
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y \
+    python3-pip python3-venv\
+    ros-jazzy-ur-robot-driver ros-jazzy-ur-calibration \
+    ros-jazzy-librealsense2* \
+    ros-jazzy-realsense2-*
+# Set up workspace
+ENV COLCON_WS=/root/workspace/colcon_ws
+RUN mkdir -p $COLCON_WS/src
+# Clone repositories
+WORKDIR $COLCON_WS/src 
+RUN  date && git clone https://github.com/UniversalRobots/Universal_Robots_ROS2_GZ_Simulation.git
+RUN  date && git clone https://gitlab.inria.fr/sed-ral/ur5_gra/ur5_robotiq_2f85.git
+# Install ROS dependencies
+RUN rosdep update &&\
+    rosdep install --ignore-src --from-paths . -y &&\
+    rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y
+# Build the workspace
+WORKDIR $COLCON_WS
+RUN /bin/bash -c "source /opt/ros/jazzy/setup.bash && colcon build --symlink-install"
+# Set up the user workspace 
+RUN mkdir -p $COLCON_WS/../example
+WORKDIR $COLCON_WS/../example
+VOLUME $COLCON_WS/../example
+# Source the setup files
+RUN echo
+RUN echo "source /opt/ros/jazzy/setup.bash" >> /root/.bashrc
+RUN echo "source $COLCON_WS/install/setup.bash" >> /root/.bashrc
+RUN echo "export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST" >> /root/.bashrc
+
+
+# install isaacsim
+
+
+RUN apt-get update && apt-get install -y gcc-11 g++-11
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 200
+RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 200
+
+WORKDIR /home
+RUN git clone https://github.com/inaki1111/IsaacSim.git
+WORKDIR /home/IsaacSim
+ENV ACCEPT_EULA=Y
+RUN yes | ./build.sh
