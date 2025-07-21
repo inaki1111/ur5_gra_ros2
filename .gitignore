@@ -1,0 +1,8 @@
+
+*.usdz
+
+
+*.log
+*.pyc
+__pycache__/
+
