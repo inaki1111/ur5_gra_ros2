@@ -58,13 +58,7 @@ ENV ACCEPT_EULA=Y
 RUN yes | ./build.sh
 
 
-#WORKDIR /home/IsaacSim/_build/linux-x86_64/release/exts/isaacsim.examples.interactive/config
-#RUN sed -i '/\[\[test\]\]/i [[python.module]]\nname = "isaacsim.examples.interactive.ur5"' extension.toml
 
-
-
-#WORKDIR /home/IsaacSim/_build/linux-x86_64/release/exts/isaacsim.examples.interactive/isaacsim.examples/interactive/
-#RUN git clone https://github.com/inaki1111/ur5.git
 WORKDIR /home/IsaacSim/source/extensions/isaacsim.examples.interactive/isaacsim/examples/interactive/ur5_sim2real
 
 RUN rm -f ur5.usdz
@@ -74,5 +68,12 @@ COPY table.usd table.usd
 WORKDIR /home/IsaacSim/source/extensions/isaacsim.ros2.bridge/python/impl/samples
 COPY ur5.usdz ur5_standalone.usdz
 COPY table.usd table.usd
+
+
+WORKDIR /home/IsaacSim/source/extensions/isaacsim.examples.interactive/isaacsim/examples/interactive/ur5_rmpflow
+COPY ur5.usdz ur5.usdz
+
+
+
 
 WORKDIR /home/IsaacSim
