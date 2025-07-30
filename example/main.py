@@ -19,10 +19,7 @@ def main():
     print_joint_states(node)
     print_tool_pose(node, 'tool0')
 
-    # --- Giro de la primera articulación a 1.57 rad ---
-    #jp = node.get_joint_positions()
-    #move_joints(node, [1.57] + list(jp[1:]))
-    #print_joint_states(node)
+
 
     # poses to send to the robot
     poses = {

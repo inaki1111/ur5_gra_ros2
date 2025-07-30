@@ -98,9 +98,37 @@ ros2 launch ur_robot_driver test_joint_trajectory_controller.launch.py
 ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur5e launch_rviz:=true
 ```
 
+# UR5e + Robotiq Gripper Example
+
+Este repositorio muestra cómo integrar el brazo UR5e de Universal Robots con la pinza eléctrica Robotiq. Incluye:
+- Conexión y activación de la pinza vía socket TCP.
+- Control de movimiento del brazo mediante MoveIt2 en ROS 2.
+- Secuencia de pick-and-place con apertura y cierre de la pinza.
+
+# UR5e + Robotiq Gripper Example
+
+This repository demonstrates how to integrate the Universal Robots UR5e arm with the Robotiq electric gripper. It includes:
+- Connecting to and activating the gripper via a TCP socket.
+- Controlling the arm’s motion using MoveIt2 in ROS 2.
+- A pick-and-place sequence with gripper open/close commands.
+
 #### Examples
 
-TDB
+```bash
+# 1. Launch the UR5e driver
+ros2 launch ur_robot_driver ur_control.launch.py \
+  ur_type:=ur5e \
+  robot_ip:=192.168.0.2
+
+# 2. Launch MoveIt2 for the UR5e (without RViz)
+ros2 launch ur5e_moveit_config ur5e_moveit_planning_execution.launch.py \
+  ur_type:=ur5e \
+  launch_rviz:=false
+
+# 3. Run the example
+cd ~/workspace/example
+python3 main.py
+
 
 #### Log/debug session
 
