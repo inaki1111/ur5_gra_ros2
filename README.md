@@ -100,61 +100,36 @@ ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur5e launch_rviz:=true
 
 # UR5e + Robotiq Gripper Example
 
-Este repositorio muestra cómo integrar el brazo UR5e de Universal Robots con la pinza eléctrica Robotiq. Incluye:
-- Conexión y activación de la pinza vía socket TCP.
-- Control de movimiento del brazo mediante MoveIt2 en ROS 2.
-- Secuencia de pick-and-place con apertura y cierre de la pinza.
-
-# UR5e + Robotiq Gripper Example
-
-This repository demonstrates how to integrate the Universal Robots UR5e arm with the Robotiq electric gripper. It includes:
-- Connecting to and activating the gripper via a TCP socket.
-- Controlling the arm’s motion using MoveIt2 in ROS 2.
-- A pick-and-place sequence with gripper open/close commands.
-
-#### Examples
-
-```bash
-# 1. Launch the UR5e driver
-ros2 launch ur_robot_driver ur_control.launch.py \
-  ur_type:=ur5e \
-  robot_ip:=192.168.0.2
-
-# 2. Launch MoveIt2 for the UR5e (without RViz)
-ros2 launch ur5e_moveit_config ur5e_moveit_planning_execution.launch.py \
-  ur_type:=ur5e \
-  launch_rviz:=false
-
-# 3. Run the example
-cd ~/workspace/example
-python3 main.py
-
-
-#### Log/debug session
-
-On an another terminal, you debug/log the ros2 session with
-
-* `ros2 run rqt_console rqt_console`  see logs in a console
-* `rqt_graph` see nodes/topics graph
-* `ros2 topic info`...
-
-### With gazebo simulation
-
-To launch simulation
-
-```bash
-ros2 launch ur_simulation_gazebo ur_sim_control.launch.py
-```
-
-Example using MoveIt with simulated robot in ROS2/jazzy:
-
-```bash
-ros2 launch ur_simulation_gz ur_sim_moveit.launch.py
-```
-
 ### Python programming
 
 Provided the Moveit stack is already started, either on a simulated or a real robot, you can interact with it using Python programs int the ros2 framework. The directory `example` contains a basic python class and it's compagnon example program that can be used as a starting block to program arm movements with simple python functions.
+
+
+#### Examples
+
+
+# 1. Launch the UR5e driver
+```bash
+ros2 launch ur_robot_driver ur_control.launch.py \
+  ur_type:=ur5e \
+  robot_ip:=192.168.0.2
+```
+
+# 2. Launch MoveIt2 for the UR5e (without RViz)
+```bash
+ros2 launch ur5e_moveit_config ur5e_moveit_planning_execution.launch.py \
+  ur_type:=ur5e \
+  launch_rviz:=false
+```
+
+# 3. Run the example
+```bash
+cd ~/workspace/example
+python3 main.py
+```
+
+
+
 
 ### With controlbox simulation
 
@@ -235,4 +210,8 @@ Then you can use the same sequences described in section `With the real robot` b
 * LTS support from may 2024 to may 2029
 * gz harmonic supported until Jan. 2028
   * conf ur: https://github.com/UniversalRobots/Universal_Robots_ROS2_GZ_Simulation
-  
+
+
+### References
+This code is adapted from the INRIA'S repository, for more information please visit the original repository.
+https://gitlab.inria.fr/sed-ral/ur5_gra/ur5_gra_ros2/-/tree/main?ref_type=heads
