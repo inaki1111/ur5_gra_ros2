@@ -5,24 +5,6 @@
 
 ![Teach pendant display: robot to be activated](./images/ur5_gra_platform.jpg)
 
-## Draft / In Progress / TODO
-
-* [x] Explore and choose version
-  * [x] ros2 humble or jazzy ? => jazzy
-  * [x] gazebo 11/classic or gz/harmonic ? => gz harmonic
-  * [x] how to interact with Moveit in Python => see `examples/`
-* [ ] Integrate the Gripper:
-  * [x] in ros2
-  * [ ] in gazebo (some troubles) => Nvidia/ISAAC
-  * [x] in moveit
-* [ ] Integrate the intel camera:
-  * [x] in gazebo
-  * [ ] in moveit (make sense ?)
-* [ ] Example of a real pick and place using python/Moveit
-  * [ ] in simulation with gazebo
-  * [ ] with the real robot
-* [ ] Verify that ros2 take in account `my_robot_calibration.yaml`
-
 ## Architecture
 
 The robotic cell is composed by:
@@ -210,6 +192,10 @@ Then you can use the same sequences described in section `With the real robot` b
 * LTS support from may 2024 to may 2029
 * gz harmonic supported until Jan. 2028
   * conf ur: https://github.com/UniversalRobots/Universal_Robots_ROS2_GZ_Simulation
+
+### ISAACSIM
+
+This docker container includes a version of ISAACSIM 5.0 to run examples in conjunction with the UR5e robot. For more information on instalation or manipulation, please refere to this respository: https://github.com/inaki1111/IsaacSim
 
 
 ### References
